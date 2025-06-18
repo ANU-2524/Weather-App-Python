@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 
 app = Flask(__name__)
-API_KEY = "5e4ba7a06642956f63cb3e134815dbfa"  # Replace with your OpenWeatherMap API key
+API_KEY = "5e4ba7a06642956f63cb3e134815dbfa"  
 
 def get_weather(city):
     base_url = "https://api.openweathermap.org/data/2.5/weather"
