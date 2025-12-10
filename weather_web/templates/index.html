@@ -1,29 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Weather App</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>🌦️ Weather App</h1>
+        <div class="header">
+            <div class="brand">
+                <div class="logo">🌤️</div>
+                <h1>Weather</h1>
+            </div>
+            <div class="subtitle">Get real-time weather updates</div>
+        </div>
+
         <form method="POST">
-            <input type="text" name="city" placeholder="Enter a city..." required>
-            <button type="submit">Get Weather</button>
+            <div class="search-box">
+                <input type="text" name="city" placeholder="Enter city name..." required autocomplete="off">
+                <button class="btn-search" type="submit">Search</button>
+            </div>
         </form>
 
         {% if error %}
-            <p class="error">⚠️ {{ error }}</p>
+            <div class="error">⚠️ {{ error }}</div>
         {% endif %}
 
         {% if weather %}
             <div class="weather-box">
-                <h2>{{ weather.city }}</h2>
-                <p>🌡️ Temperature: {{ weather.temp }}°C</p>
-                <p>Feels like: {{ weather.feels_like }}°C</p>
-                <p>Description: {{ weather.desc }}</p>
-                <p>Humidity: {{ weather.humidity }}%</p>
-                <p>💨 Wind Speed: {{ weather.wind }} m/s</p>
+                <div class="weather-top">
+                    <h2>{{ weather.city }}</h2>
+                    <div class="description">{{ weather.desc }}</div>
+                </div>
+
+                <div class="main-temp">
+                    {{ weather.temp|round(1) }}<span class="degree">°C</span>
+                </div>
+
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">🌡️</div>
+                        <div class="detail-label">Feels Like</div>
+                        <div class="detail-value">{{ weather.feels_like|round(1) }}°C</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">💧</div>
+                        <div class="detail-label">Humidity</div>
+                        <div class="detail-value">{{ weather.humidity }}%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">💨</div>
+                        <div class="detail-label">Wind Speed</div>
+                        <div class="detail-value">{{ weather.wind }} m/s</div>
+                    </div>
+                </div>
             </div>
         {% endif %}
     </div>
